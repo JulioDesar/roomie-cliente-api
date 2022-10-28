@@ -178,7 +178,7 @@ public class Cliente implements UserDetails {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(CPF);
 	}
 
 	@Override
@@ -190,7 +190,7 @@ public class Cliente implements UserDetails {
 		if (getClass() != obj.getClass())
 			return false;
 		Cliente other = (Cliente) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(CPF, other.CPF);
 	}
 
 	@Override
