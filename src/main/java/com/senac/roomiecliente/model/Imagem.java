@@ -1,9 +1,13 @@
 package com.senac.roomiecliente.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -12,23 +16,32 @@ import javax.persistence.Table;
 
 @Entity()
 @Table(name = "imagem")
-public class Imagem {
+public class Imagem implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@Lob
-	@ManyToOne(targetEntity = Imovel.class)
-	@JoinColumn(name = "imagem_ibfk_1")
+	@Column(name = "imagem", columnDefinition = "BLOB")
 	private byte[] imagem;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_imovel", nullable = false)
+	private Imovel imovel;
 
 	public Imagem() {
 	}
 
-	public Imagem(Integer id, byte[] imagem) {
-		this.id = id;
+	public Imagem(byte[] imagem, Imovel imovel) {
 		this.imagem = imagem;
+		this.imovel = imovel;
 	}
 
 	@Override
@@ -46,6 +59,14 @@ public class Imagem {
 			return false;
 		Imagem other = (Imagem) obj;
 		return Objects.equals(imagem, other.imagem);
+	}
+	
+	public byte[] getImagem() {
+		return imagem;
+	}
+	
+	public Imovel getImovel() {
+		return imovel;
 	}
 
 }

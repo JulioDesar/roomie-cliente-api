@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -36,34 +38,25 @@ public class Imovel {
 
 	@Column(name = "descricao")
 	private String descricao;
+	
+	@ManyToOne()
+	@JoinColumn(name = "id_cliente", nullable = false)
+	private Cliente cliente;
 
-	@OneToMany(targetEntity = Imagem.class)
-	@JoinColumn(name = "imagem_ibfk_1")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_imovel")
 	private List<Imagem> imagens = new ArrayList<>();
 
 	public Imovel() {
 	}
 	
-	public Imovel(Integer id, String titulo, String cep, String numero_casa, String complemento, String descricao) {
-		super();
-		this.id = id;
+	public Imovel(String titulo, String cep, String numero_casa, String complemento, String descricao, Cliente cliente) {
 		this.titulo = titulo;
 		this.cep = cep;
 		this.numero_casa = numero_casa;
 		this.complemento = complemento;
 		this.descricao = descricao;
-	}
-
-	public Imovel(Integer id, String titulo, String cep, String numero_casa, String complemento, String descricao,
-			Imagem imagem) {
-		super();
-		this.id = id;
-		this.titulo = titulo;
-		this.cep = cep;
-		this.numero_casa = numero_casa;
-		this.complemento = complemento;
-		this.descricao = descricao;
-		this.imagens.add(imagem);
+		this.cliente = cliente;
 	}
 
 	@Override
@@ -129,6 +122,10 @@ public class Imovel {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	public Cliente getCliente() {
+		return cliente;
 	}
 
 	public List<Imagem> getImagens() {

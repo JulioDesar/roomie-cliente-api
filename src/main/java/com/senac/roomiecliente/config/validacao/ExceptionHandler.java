@@ -1,5 +1,6 @@
 package com.senac.roomiecliente.config.validacao;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,14 @@ public class ExceptionHandler {
 		});
 
 		return erros;
+	}
+
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@org.springframework.web.bind.annotation.ExceptionHandler(IOException.class)
+	public ErroDto handle(IOException exception) {
+
+		return new ErroDto(exception.getCause().toString(), exception.getMessage());
+
 	}
 
 }

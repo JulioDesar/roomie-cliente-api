@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -64,6 +65,10 @@ public class Cliente implements UserDetails {
 
 	@Column(name = "senha")
 	private String senha;
+	
+	@OneToMany()
+	@JoinColumn(name = "id_cliente")
+	private List<Imovel> imoveis = new ArrayList<>();
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "usuario_perfis", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "id"))
@@ -174,6 +179,10 @@ public class Cliente implements UserDetails {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	public List<Imovel> getImoveis() {
+		return imoveis;
 	}
 
 	@Override
