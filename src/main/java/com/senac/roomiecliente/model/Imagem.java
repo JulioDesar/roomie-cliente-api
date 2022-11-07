@@ -14,6 +14,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity()
 @Table(name = "imagem")
 public class Imagem implements Serializable {
@@ -34,6 +36,7 @@ public class Imagem implements Serializable {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_imovel", nullable = false)
+	@JsonBackReference
 	private Imovel imovel;
 
 	public Imagem() {

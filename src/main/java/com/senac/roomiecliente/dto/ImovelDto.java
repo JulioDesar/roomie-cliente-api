@@ -1,6 +1,7 @@
 package com.senac.roomiecliente.dto;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -72,13 +73,17 @@ public class ImovelDto {
 		return cliente_id;
 	}
 
-	public Imovel converter(Cliente cliente, MultipartFile imagem, ImagemRepository imagemBd) throws IOException {
+	public Imovel converter(Cliente cliente, List<MultipartFile> imagens, ImagemRepository imagemBd) throws IOException {
 
 		Imovel imovel = new Imovel(this.titulo, this.cep, this.numero_casa, this.complemento, this.descricao, cliente);
-		Imagem imagemNovo = new Imagem(imagem.getBytes(), imovel);
-		imovel.getImagens().add(imagemNovo);
+
+		for (MultipartFile imagem : imagens) {
+
+			Imagem novaImagem = new Imagem(imagem.getBytes(), imovel);
+			imovel.getImagens().add(novaImagem);
+			imagemBd.save(novaImagem);
+		}
 		cliente.getImoveis().add(imovel);
-		imagemBd.save(imagemNovo);
 
 		return imovel;
 	}

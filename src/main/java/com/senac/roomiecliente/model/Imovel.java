@@ -15,6 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity()
 @Table(name = "imovel_confirmar")
 public class Imovel {
@@ -38,19 +41,22 @@ public class Imovel {
 
 	@Column(name = "descricao")
 	private String descricao;
-	
+
 	@ManyToOne()
 	@JoinColumn(name = "id_cliente", nullable = false)
+	@JsonBackReference
 	private Cliente cliente;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_imovel")
+	@JsonManagedReference
 	private List<Imagem> imagens = new ArrayList<>();
 
 	public Imovel() {
 	}
-	
-	public Imovel(String titulo, String cep, String numero_casa, String complemento, String descricao, Cliente cliente) {
+
+	public Imovel(String titulo, String cep, String numero_casa, String complemento, String descricao,
+			Cliente cliente) {
 		this.titulo = titulo;
 		this.cep = cep;
 		this.numero_casa = numero_casa;
@@ -123,7 +129,7 @@ public class Imovel {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+
 	public Cliente getCliente() {
 		return cliente;
 	}
