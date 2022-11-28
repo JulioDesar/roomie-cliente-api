@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity()
-@Table(name = "imovel_confirmar")
+@Table(name = "imovel")
 public class Imovel {
 
 	@Id
@@ -42,7 +42,22 @@ public class Imovel {
 	@Column(name = "descricao")
 	private String descricao;
 
-	@ManyToOne()
+	@Column(name = "aprovado")
+	private boolean status;
+
+	@Column(name = "sexo")
+	private String sexo;
+
+	@Column(name = "cidade")
+	private String cidade;
+
+	@Column(name = "estado")
+	private String estado;
+
+	@Column(name = "quantidade_quarto")
+	private Integer numeroQuartos;
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_cliente", nullable = false)
 	@JsonBackReference
 	private Cliente cliente;
@@ -55,13 +70,18 @@ public class Imovel {
 	public Imovel() {
 	}
 
-	public Imovel(String titulo, String cep, String numero_casa, String complemento, String descricao,
-			Cliente cliente) {
+	public Imovel(String titulo, String cep, String numero_casa, String complemento, String descricao, String sexo,
+			String cidade, String estado, Integer numeroQuartos, Cliente cliente) {
 		this.titulo = titulo;
 		this.cep = cep;
 		this.numero_casa = numero_casa;
 		this.complemento = complemento;
 		this.descricao = descricao;
+		this.status = false;
+		this.sexo = sexo;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.numeroQuartos = numeroQuartos;
 		this.cliente = cliente;
 	}
 
@@ -128,6 +148,46 @@ public class Imovel {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public Integer getNumeroQuartos() {
+		return numeroQuartos;
+	}
+
+	public void setNumeroQuartos(Integer numeroQuartos) {
+		this.numeroQuartos = numeroQuartos;
 	}
 
 	public Cliente getCliente() {

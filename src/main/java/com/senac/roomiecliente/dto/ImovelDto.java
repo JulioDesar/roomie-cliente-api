@@ -35,6 +35,22 @@ public class ImovelDto {
 	@NotEmpty
 	private String descricao;
 
+	@NotNull
+	@NotEmpty
+	private String sexo;
+
+	@NotNull
+	@NotEmpty
+	private String cidade;
+
+	@NotNull
+	@NotEmpty
+	private String estado;
+
+	@NotNull
+	@NotEmpty
+	private Integer numeroQuartos;
+
 	private Integer cliente_id;
 
 	public ImovelDto() {
@@ -46,6 +62,10 @@ public class ImovelDto {
 		this.numero_casa = imovel.getNumero_casa();
 		this.complemento = imovel.getComplemento();
 		this.descricao = imovel.getDescricao();
+		this.sexo = imovel.getSexo();
+		this.cidade = imovel.getCidade();
+		this.estado = imovel.getEstado();
+		this.numeroQuartos = imovel.getNumeroQuartos();
 		this.cliente_id = imovel.getCliente().getId();
 	}
 
@@ -69,13 +89,31 @@ public class ImovelDto {
 		return descricao;
 	}
 
+	public String getSexo() {
+		return sexo;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public Integer getNumeroQuartos() {
+		return numeroQuartos;
+	}
+
 	public Integer getCliente_id() {
 		return cliente_id;
 	}
 
-	public Imovel converter(Cliente cliente, List<MultipartFile> imagens, ImagemRepository imagemBd) throws IOException {
+	public Imovel converter(Cliente cliente, List<MultipartFile> imagens, ImagemRepository imagemBd)
+			throws IOException {
 
-		Imovel imovel = new Imovel(this.titulo, this.cep, this.numero_casa, this.complemento, this.descricao, cliente);
+		Imovel imovel = new Imovel(this.titulo, this.cep, this.numero_casa, this.complemento, this.descricao, this.sexo,
+				this.cidade, this.estado, this.numeroQuartos, cliente);
 
 		for (MultipartFile imagem : imagens) {
 

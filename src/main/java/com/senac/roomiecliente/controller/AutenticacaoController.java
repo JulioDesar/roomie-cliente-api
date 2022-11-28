@@ -25,7 +25,7 @@ import com.senac.roomiecliente.repository.ClienteRepository;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3030")
 public class AutenticacaoController {
 
 	@Autowired
