@@ -7,6 +7,8 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,7 +45,8 @@ public class Imovel {
 	private String descricao;
 
 	@Column(name = "aprovado")
-	private boolean status;
+	@Enumerated(EnumType.STRING)
+	private Status status = Status.EM_ANALISE;
 
 	@Column(name = "sexo")
 	private String sexo;
@@ -56,6 +59,9 @@ public class Imovel {
 
 	@Column(name = "quantidade_quarto")
 	private Integer numeroQuartos;
+
+	@Column(name = "preco")
+	private Double preco;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_cliente", nullable = false)
@@ -71,18 +77,18 @@ public class Imovel {
 	}
 
 	public Imovel(String titulo, String cep, String numero_casa, String complemento, String descricao, String sexo,
-			String cidade, String estado, Integer numeroQuartos, Cliente cliente) {
+			String cidade, String estado, Integer numeroQuartos, Double preco, Cliente cliente) {
 		this.titulo = titulo;
 		this.cep = cep;
 		this.numero_casa = numero_casa;
 		this.complemento = complemento;
 		this.descricao = descricao;
-		this.status = false;
 		this.sexo = sexo;
 		this.cidade = cidade;
 		this.estado = estado;
 		this.numeroQuartos = numeroQuartos;
 		this.cliente = cliente;
+		this.preco = preco;
 	}
 
 	@Override
@@ -150,11 +156,11 @@ public class Imovel {
 		this.descricao = descricao;
 	}
 
-	public boolean isStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
@@ -188,6 +194,14 @@ public class Imovel {
 
 	public void setNumeroQuartos(Integer numeroQuartos) {
 		this.numeroQuartos = numeroQuartos;
+	}
+
+	public Double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(Double preco) {
+		this.preco = preco;
 	}
 
 	public Cliente getCliente() {

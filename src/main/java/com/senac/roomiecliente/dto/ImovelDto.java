@@ -51,6 +51,10 @@ public class ImovelDto {
 	@NotEmpty
 	private Integer numeroQuartos;
 
+	@NotNull
+	@NotEmpty
+	private Double preco;
+
 	private Integer cliente_id;
 
 	public ImovelDto() {
@@ -67,6 +71,7 @@ public class ImovelDto {
 		this.estado = imovel.getEstado();
 		this.numeroQuartos = imovel.getNumeroQuartos();
 		this.cliente_id = imovel.getCliente().getId();
+		this.preco = imovel.getPreco();
 	}
 
 	public String getTitulo() {
@@ -101,6 +106,10 @@ public class ImovelDto {
 		return estado;
 	}
 
+	public Double getPreco() {
+		return preco;
+	}
+
 	public Integer getNumeroQuartos() {
 		return numeroQuartos;
 	}
@@ -113,7 +122,7 @@ public class ImovelDto {
 			throws IOException {
 
 		Imovel imovel = new Imovel(this.titulo, this.cep, this.numero_casa, this.complemento, this.descricao, this.sexo,
-				this.cidade, this.estado, this.numeroQuartos, cliente);
+				this.cidade, this.estado, this.numeroQuartos, this.preco, cliente);
 
 		for (MultipartFile imagem : imagens) {
 
