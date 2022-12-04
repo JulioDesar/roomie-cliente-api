@@ -46,12 +46,12 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers(HttpMethod.POST, "/auth").permitAll()
+		http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, "/auth").permitAll()
 				.antMatchers(HttpMethod.GET, "/swagger-ui/*").permitAll()
 				.antMatchers(HttpMethod.POST, "/clients/*").permitAll()
 				.antMatchers(HttpMethod.GET, "/imoveis/*").permitAll()
-				.antMatchers(HttpMethod.PUT, "/imoveis/*").permitAll()
-				.anyRequest().authenticated().and().csrf().disable().sessionManagement()
+				.antMatchers(HttpMethod.PUT, "/imoveis/imovel/*").permitAll()
+				.anyRequest().authenticated().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().addFilterBefore(
 						new AutenticacaoViaTokenFilter(tokenService, bd), UsernamePasswordAuthenticationFilter.class);
 		http.cors();
