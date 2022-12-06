@@ -72,6 +72,11 @@ public class Cliente implements UserDetails {
 	@JsonManagedReference
 	private List<Imovel> imoveis = new ArrayList<>();
 
+	@OneToMany()
+	@JoinColumn(name = "id_cliente")
+	@JsonManagedReference
+	private List<Aluguel> alugueis = new ArrayList<>();
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "usuario_perfis", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "id"))
 	List<Perfil> perfis = new ArrayList<>();
@@ -185,6 +190,10 @@ public class Cliente implements UserDetails {
 
 	public List<Imovel> getImoveis() {
 		return imoveis;
+	}
+
+	public List<Aluguel> getAlugueis() {
+		return alugueis;
 	}
 
 	@Override
