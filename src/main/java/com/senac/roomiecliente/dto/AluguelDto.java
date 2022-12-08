@@ -13,20 +13,17 @@ import com.senac.roomiecliente.repository.ImovelRepository;
 
 public class AluguelDto {
 
-	@NotNull
-	@NotEmpty
 	private Integer id;
 
 	@NotNull
 	@NotEmpty
-	private Integer cliente_id;
+	private String cliente_id;
 
 	@NotNull
 	@NotEmpty
-	private Integer imovel_id;
+	private String imovel_id;
 
 	@NotNull
-	@NotEmpty
 	private Long dias;
 
 	public AluguelDto() {
@@ -35,19 +32,19 @@ public class AluguelDto {
 
 	public AluguelDto(Aluguel aluguel) {
 		this.id = aluguel.getId();
-		this.cliente_id = aluguel.getCliente().getId();
-		this.imovel_id = aluguel.getImovel().getId();
+		this.cliente_id = aluguel.getCliente().getId().toString();
+		this.imovel_id = aluguel.getImovel().getId().toString();
 	}
 
 	public Integer getId() {
 		return id;
 	}
 
-	public Integer getCliente_id() {
+	public String getCliente_id() {
 		return cliente_id;
 	}
 
-	public Integer getImovel_id() {
+	public String getImovel_id() {
 		return imovel_id;
 	}
 
@@ -57,8 +54,8 @@ public class AluguelDto {
 
 	public Aluguel convert(ClienteRepository cr, ImovelRepository imovelBd) {
 
-		Optional<Cliente> cliente = cr.findById(cliente_id);
-		Optional<Imovel> imovel = imovelBd.findById(imovel_id);
+		Optional<Cliente> cliente = cr.findById(Integer.parseInt(cliente_id));
+		Optional<Imovel> imovel = imovelBd.findById(Integer.parseInt(imovel_id));
 
 		return new Aluguel(cliente.get(), imovel.get(), this.dias);
 	}

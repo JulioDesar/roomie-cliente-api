@@ -21,8 +21,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name = "cliente")
 public class Cliente implements UserDetails {
@@ -69,12 +69,12 @@ public class Cliente implements UserDetails {
 
 	@OneToMany()
 	@JoinColumn(name = "id_cliente")
-	@JsonManagedReference
+	@JsonBackReference
 	private List<Imovel> imoveis = new ArrayList<>();
 
 	@OneToMany()
 	@JoinColumn(name = "id_cliente")
-	@JsonManagedReference
+	@JsonBackReference
 	private List<Aluguel> alugueis = new ArrayList<>();
 
 	@ManyToMany(fetch = FetchType.EAGER)

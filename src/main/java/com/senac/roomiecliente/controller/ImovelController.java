@@ -28,7 +28,6 @@ import com.senac.roomiecliente.dto.ImovelDto;
 import com.senac.roomiecliente.dto.StatusDto;
 import com.senac.roomiecliente.model.Cliente;
 import com.senac.roomiecliente.model.Imovel;
-import com.senac.roomiecliente.model.Status;
 import com.senac.roomiecliente.repository.ClienteRepository;
 import com.senac.roomiecliente.repository.ImagemRepository;
 import com.senac.roomiecliente.repository.ImovelRepository;

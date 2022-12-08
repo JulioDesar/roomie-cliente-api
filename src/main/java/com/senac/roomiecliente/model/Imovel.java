@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -68,6 +69,11 @@ public class Imovel {
 	@JsonBackReference
 	private Cliente cliente;
 
+	@OneToOne(mappedBy = "imovel", cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_imovel", nullable = false)
+	@JsonBackReference
+	private Aluguel aluguel;
+
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_imovel")
 	@JsonManagedReference
@@ -89,6 +95,22 @@ public class Imovel {
 		this.numeroQuartos = numeroQuartos;
 		this.cliente = cliente;
 		this.preco = preco;
+	}
+
+	public Imovel(String titulo, String cep, String numero_casa, String complemento, String descricao, String sexo,
+			String cidade, String estado, Integer numeroQuartos, Double preco, Cliente cliente, Aluguel aluguel) {
+		this.titulo = titulo;
+		this.cep = cep;
+		this.numero_casa = numero_casa;
+		this.complemento = complemento;
+		this.descricao = descricao;
+		this.sexo = sexo;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.numeroQuartos = numeroQuartos;
+		this.cliente = cliente;
+		this.preco = preco;
+		this.aluguel = aluguel;
 	}
 
 	@Override
@@ -206,6 +228,10 @@ public class Imovel {
 
 	public Cliente getCliente() {
 		return cliente;
+	}
+
+	public Aluguel getAluguel() {
+		return aluguel;
 	}
 
 	public List<Imagem> getImagens() {

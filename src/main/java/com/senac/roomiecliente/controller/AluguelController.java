@@ -2,6 +2,8 @@ package com.senac.roomiecliente.controller;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,7 +46,7 @@ public class AluguelController {
 	}
 
 	@PostMapping("/")
-	public ResponseEntity<Aluguel> save(@RequestBody AluguelDto aluguelForm, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<Aluguel> save(@Valid @RequestBody AluguelDto aluguelForm, UriComponentsBuilder uriBuilder) {
 		Aluguel aluguel = aluguelForm.convert(clienteBd, imovelBd);
 		aluguelRepository.save(aluguel);
 
