@@ -23,6 +23,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name = "cliente")
 public class Cliente implements UserDetails {
@@ -69,7 +70,7 @@ public class Cliente implements UserDetails {
 
 	@OneToMany()
 	@JoinColumn(name = "id_cliente")
-	@JsonBackReference
+	@JsonManagedReference
 	private List<Imovel> imoveis = new ArrayList<>();
 
 	@OneToMany()

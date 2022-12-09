@@ -44,6 +44,7 @@ public class Aluguel {
 	public Aluguel(Cliente cliente, Imovel imovel, Long dias) {
 		this.cliente = cliente;
 		this.imovel = imovel;
+		this.imovel.setStatus(Status.ALUGADO);
 		this.dataFinal = dataInicial.plusDays(dias);
 	}
 
